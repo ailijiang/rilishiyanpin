@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>六院日历</title>
+	<!--日历快照-->
+	<script src="js/html2canvas.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/styles.css">
+	<style>
+		.photoPic{
+			width: 100%;
+			position: fixed;
+			top:0;
+			left:0;
+			bottom:0;
+			background: rgba(0,0,0,.4);
+			z-index: 2;
+			transition: all 1s; 
+			display: none;
+		}
+		.photoPic span{
+			width: 100%;
+			text-align: center;
+			margin: 0 0 20px;
+			display: inline-block;
+			color: #fff;
+		}
+		.photoPic img{
+			width:100%;
+			transform: scale(1.1);
+			transition: all .2s; 
+		}
+		.animate{
+			height:100%;
+			opacity: 1;
+		}
+		.animate img{
+			transform: scale(1);
+		}
+		.imgbox{
+			position: relative;
+			margin: 0 10%;
+			width:80%;
+		}
+		.imgbox i{
+			position: absolute;
+			right:-12px;
+			top:-40px;
+			z-index: 3;
+			color: #fff;
+			border:1px solid #fff;
+			border-radius: 50%;
+			width:25px;
+			height:25px;
+			padding-top:2px;
+			text-align: center;
+			font-style: normal;
+			box-sizing: border-box;
+		}
+		.btnSave{
+			width:100%;
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			bottom:20px;
+			z-index: 1;
+			display: flex;
+			justify-content: center;
+		}
+		.btnSave button{
+			width:110px;
+			margin: 0 10px;
+		}
+		#images{
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	</div>
+	<div class="wrapper">
+		<nav>
+			<div id="drop">
+				<div>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</nav>
+		<ul>
+			<li>六院日历</li>
+			<li><a href="https://www.douban.com/group/652211/" style='text-decoration:none;'>六院小组</a></li>
+			<li><a href="https://site.douban.com/304538/" style='text-decoration:none;'>六院小站</a></li>
+			<li><a href="https://www.douban.com/people/191199466/" style='text-decoration:none;'>联系我们</a></li>
+			<li><button onclick="saveImg()">生成图片(第一步)</button></li>
+		</ul>
+		<div id="content">
+		<div>
+			<img id="myImage" src="pic/0.jpg" style="  height: auto;
+			max-width: 100%;">
+		</div>
+		<div>
+			<p id="ri" style="font-size:4rem"></p>
+			<p id="yn" style="font-size:17px"></p>
+			<HR style=" FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width="100%" color=#987 cb 9
+				SIZE=1>
+			<p id="bt" style="text-align:left;"></p>
+			<br>
+
+			<p id="js" style="text-align:left;">
+			</p>
+		</div>
+	</div>
+	<div id='photoPic' class="photoPic">
+		　　		<span>长按保存图片</span>
+				<div class="imgbox">
+					<i>X</i>
+					<img src="" alt="" />
+				</div>
+			</div>
+			<div id="images"></div>
+	</div>
+
+	<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="js/app.js"></script>
+	<script>
+		/*获取日期*/
+		var d = new Date();
+		document.getElementById("ri").innerHTML = d.getDate();
+		var str1 = d.toDateString().split(" ")[1];
+		var str2 = d.getFullYear();
+		document.getElementById("yn").innerHTML = str1.concat(" . ", str2);
+		/*获取今日序号*/
+		var d2 = new Date('2019-01-01');
+		var dd2 = d2.getTime();
+		var d3 = d.getTime();
+		var da = parseInt((d3 - dd2) / 86400000) - 262;/*随机序号获得成功*/
+
+		/*获取今日精神病信息*/
+		var bing = [];
+		bing.push([' 大雄 胖虎综合症', ' 这是日本针对先天性脑机能障碍中注意力不足过动症（ADHD）及注意力缺失症（ADD）这类精神官能障碍的名称。ADD是指Attention Deficit Disorder，也就是注意力缺失症ADHD是指Attention deficit hyperactivity disorder，也就是俗称过动儿的过动症。前者所指的就是大雄在书中的性格，注意力不容易集中，散漫以及做事常失败，而造成容易被欺侮的对象。后者所指的就类似胖虎在书中的性格设定一般，冲动、不容易冷静且有暴力倾向，是个霸凌其他同学的过动儿。']);
+		bing.push([' Lesch Nyhan综合症 ', ' 也称为自毁容貌症，是X一连锁隐性遗传的先天性嘌呤代谢缺陷病， （居俺的理解是某种先天痛风伴智力低下病） 自毁容貌症患者在发病时会毁坏自己的容貌,用各种器械把脸弄得狰狞可怕. 这种疾病患者常常被束缚在床上或轮椅上. 自毁容貌症患者大多死于儿童时代,很少活到20岁以后. ']);
+		bing.push([' 天使症候群/快乐木偶综合症', ' 是由基因缺陷引起， 病征包括经常发笑、痉挛、缺乏语言能力及智障， 因此被称为“快乐木偶综合症”，全球约有1.5万名病患者，多数为儿童。']);
+		bing.push([' 格斯特曼综合症', ' 格斯特曼综合症的症状为运动功能障碍和痴呆，潜伏期长达30年以上，患者通常在发病2—6年后死亡。致死性家族性失眠症，是一种无法睡眠，始终处于做梦状态的疾病，患者的自律神经和运动神经受到伤害，在发病6—18个月后死亡']);
+		bing.push([' 威廉姆斯综合症', ' 威廉姆斯综合症是一种非遗传性症状。在活着出生的婴儿中，大约每两万人就有一个患有威廉姆斯综合症，发生前无法预测。 患有此病的人会非常喜欢与人交谈说话，甚至在一些正常人应该觉得害怕和焦虑的场合也无法产生这种感觉。他们非常喜欢与人交流，甚至是陌生人，但是他们会对另外一些事物，如：蜘蛛、站在高处有莫名的恐慌。他们非常容易对音乐产生共鸣，并投入很深的感情。']);
+		bing.push([' 第欧根尼综合症', ' 又名肮脏混乱综合症或众议院综合征 症状特点: 1.生活脏乱， 2.极度自卑感 3.又强迫性的囤积行为，无法舍弃财物，过度的购买欲 4.有强烈的隐居欲望，拒绝他人帮助 5.主要出现在老年人上，有时伴随老年痴呆症']);
+		bing.push([' 外地口音综合症', ' Foreign accent syndrome:外国口音综合症(Foreign accent syndrome)是一种临床上很罕见的病症通常伴随着严重的脑损伤，此病导致患者说母语时如同带有外国口音，例如：一个美国人可能说话带着法国口音']);
+		bing.push([' 科塔尔综合症', ' 科塔尔综合征（Cotard syndrome）： 以虚无妄想（nihilistic delusion）和否定妄想（delusion of negation）为核心症状 患者主要是认为自身躯体和内部器官发生了变化. 部分或全部已经不存在了 如某患者称自己的肺烂了 肠子也烂了 甚至整个身体都没了. 患者认为自己已经死了 不复于人世或者五脏六腑已经被掏空 即使正和外人说话也不认为自己是活着的']);
+		bing.push([' 卡普格拉妄想综合症 ', ' 卡普格拉妄想症(Capgras delusion)命名自第一个介绍这个心理疾病的法国心理医师， 患有这种病的人会认为，自己的爱人被一个具有同样外貌特征的人取代了']);
+		bing.push([' 妄想综合症', ' 又名人身变换症 和卡普格拉妄想症(Capgras delusion)相反， 这类患者认为身边许许多多的人其实都是同一个人的伪装，以上都属于错觉认知综合症的一种']);
+		bing.push([' 幻肢症 ', ' 做过截肢手术的或意外丧肢的人有时会觉得失去的肢体仍然长在身上甚至感觉到冷暖，痒，挤压，气密性和刺痛，通常还会觉得不见的肢体比正常变短或处在扭曲的位置上。这种感觉间歇发生，会随着时间消失。']);
+		bing.push([' Somatoparaphrenia', ' 是一种妄想monothematic在否认拥有肢体或整个一侧的身体。作为一个例子，一个病人会认为他／她自己的手臂将属于医生，或其他人。']);
+		bing.push([' 爱丽丝漫游综合症', ' Alice In Wonderland Syndrome (AIWS) 患病时间：多发于儿童时期。症候：长时间观察一种事物，会突然像爱丽丝漫游仙境一样，周遭的事情忽然变大，或者忽然变小。']);
+		bing.push([' 身体畸形恐惧症', ' 患者强烈认为自己身体某部分不好看。无法接受整形手术，也会「 自己动手做」来整形。身体畸形恐惧症病人，往往抱怨与脸部、头部想象中或实际上的轻微缺陷有关 ，例如头发稀疏、有疤痕或两边脸不对称等。BDD病患对于身体的任何一部份均可能产生不满，并夸大这些「缺陷」。BDD病患可能在不同的时刻，对不同的身体部位产生不满； 或在同一个时期，对两种以上的部位不满（如：抱怨“双下巴”及“太鼓的腮帮子”）。BDD与厌食症患者或变性症患者不同之处， 在BDD患者对身体的不满是局部的，而非整体的body image的不满。BDD患者倾向于过度强调「美丑的吸引力」及夸大「自身的缺点」。']);
+		bing.push([' 虹膜异色症', ' 虹膜异色症是一种身体异常状况，指两眼的虹膜呈现不同颜色的性状。眼睛的颜色，特别是虹膜的颜色是由虹膜组织的色素沉淀及分布决定的。因此在形成过程中任何因素影响以上的色素分布就会造成眼睛颜色的不同']);
+		bing.push([' 斯德哥尔摩综合症', ' 斯德哥尔摩效应，又称斯德哥尔摩症候群或者称为人质情结或人质综合症，是指犯罪的被害者对于犯罪者产生情感，甚至反过来帮助犯罪者的一种情结。这个情感造成被害人对加害人产生好感、依赖心、甚至协助加害人. ']);
+		bing.push([' lima综合症 ', ' lima综合症讲的是人质犯被人质所同化，与人质的立场趋于一致，把攻击心态转变的现象， lima综合症的起源： 1996年一批持械匪徒绑架日本驻秘鲁lima的大使馆绑架大量人质，在大使馆的工作人员光辉的人格辉映下，在几天后匪徒就主动释放了大部分的人质 ']);
+		bing.push([' 巴黎综合症', ' 巴黎综合症是日本人在法国巴黎工作或度假时发生的一种精神紊乱状态。 其主要症状有恶心、失眠、抽搐、难以名状的恐惧感、自卑感、蒙羞感以及被迫害妄想症，甚至是有自杀倾向。 法国心理学家赫夫•本阿默指出：“心理脆弱的游客可能会失去承受力，当他们了解的关于这个国家的介绍跟自己所发现的事实不符时，就会引发危机。” 有法国精神医师表示，这些人的临床抑郁症是由于他们对巴黎的浪漫看法与现实无法调和而导致的。']);
+		bing.push([' 耶路撒冷综合症', ' 耶路撒冷综合症是一种由于访问耶路撒冷城而触发的精神现象，包括一些宗教主题的激烈的思想困扰、错觉或其他类似精神病的体验。它并不局限于某一种宗教或教派，犹太人和许多不同宗派背景的基督徒都受到影响。 耶路撒冷综合症并不存在普遍的表现，不过产生这种现象的患者先前并无精神病的任何征兆，只是在到达耶路撒冷后才开始发病。而几周后, 或者离开耶路撒冷后就彻底痊愈。']);
+		bing.push([' 被爱妄想症', ' （Erotomania） 是一种少见的心理疾病，患者会陷入另一个人（通常有较高的社会地位）和他谈恋爱的妄想之中。被爱妄想症又被称为克雷宏波综合症，“old maid psychosis”、“erotic paranoia”、“erotic self-referent delusions 以纪念法国精神病学家克雷宏波（1872-1934）于1921年发表了题目为“Les Psychoses Passionelles”的一篇论文。']);
+		bing.push([' munchhausen综合症', ' munchhausen综合症以德国男爵的名字命名。表现为病人到处求医，千方百计咬住医院，为了达到这个目的，可通过说谎吹牛，甚至伤害自己的身体等手段，编造出许多虚假的症状。注入医院中场和工作人员冲突，稍不如意立即出院，反复辗转于多个医院。 症状特点： 1.吹牛说谎 向医生提供虚假的急诊住宿和症状。 2.不惜破坏自己的身躯使人相信。 3.辗转反复进入多所医院。 4.病人多数为较年轻的女性从事医务工作，并与医院某些人有特殊关系。 5.多数病人有精神创伤，但到处求医甚至伤害自己但目的性不明。']);
+		bing.push([' 司汤达综合症 ', ' 司汤达综合症(Stendhal syndrome)司汤达综合症或佛罗伦萨综合征， 是指在艺术品密集的空间里，观赏者受强烈美感刺激，引发的心身疾病 ，导致心跳加快，头昏眼花， 混乱 ，甚至产生幻觉时的症状。 它的名字命名来自著名的19世纪法国作家 司汤达，他在那不勒斯和佛罗伦萨游记一书描述了他的经验。']);
+		bing.push([' 监狱精神病', ' 犯罪或者死囚容易出现一种Ganser syndrome 症状包括意识模糊， 觉得自己躯体被转换了（应该是觉得自己是其他人），有压力，认为个人身份证遗失， 对于看似很简单的问题非要给出很荒谬的答案']);
+		bing.push([' 学者综合症', ' 是指有认知障碍，但在某一方面，如对某种艺术或学术，却有超乎常人的能力的人。 自闭患者中有10%是学者综合症（故称自闭学者，Autistic savant），大脑损伤患者中则约1/2000的机率。（50% 自闭症患者, 50%大脑损伤患者）。他们的IQ大部分低于70，但在一些特殊测试中却远胜于常人，故俗称为白痴天才（Idiot Savant）。他们的天赋有多种不同的形式，有演奏乐器、绘画、记忆、计算及日历运算能力。']);
+		bing.push([' 高大罂粟花综合症', ' 社会心理症侯，不属于精神病 高大罂粟花综合症（Tall P0ppy Syndrome）是澳大利亚和新西兰的一个流行用语，用来形容一种在社群文化中，集体地对某类人的批判态度，属于意识形态表达的一种方式。当任何一个人在社会上达到某程度上成功的时候，而惹来社群中不约而同的，自发性的，集体性的批评。通常，这种批评也会从社区领袖们口中而出，亦带有反智主义，特别是对知识分子的怀疑和鄙视。']);
+		bing.push([' 道林格雷综合症 ', ' Dorian Gray Syndrome是指文化和社会现象,特点是过分关注个人自身,伴随难以应付老龄化进程及老龄化所要求的成熟。 有时伴随抑郁症的发作和自杀危机 道林格雷综合征患者大量使用化妆品的医疗程序和产品(其中包括整容植发ETC)，以保持他们的青春。 和彼得潘综合症一样，属于流行语，不被认为是确诊的心理病症，两者都属于自恋型人格失调 名字来源于奥斯卡王尔德的著名小说：道林格雷的肖像']);
+		bing.push([' 阿斯伯格综合症 ', ' 是神经发展障碍的一种，可归类为自闭症 (Autistic Spectrum Disorder) 其中一类[1]。在外界一般被认为是“没有智能障碍的自闭症”。在精神病学常用的美国心理学会的诊断基准 (DSM IV TR) 当中，则称之为亚斯伯格障碍。人际关系的障碍，对他人情绪的推测力，也就是有精神理论（Theory of mind）障碍的特徴。对特定的范畴会表现出特别执着，运动机能也会显现出轻微障碍。但像自闭症一般带有语言障碍与智力障碍则较为少数。对视觉和背诵方面的表现普遍良好，许多科学家和数学家也患有阿斯伯格综合症。 被诊断为阿斯伯格综合症的儿童，必须具有以下三种征状：社交困难 (Social deficit)、沟通困难 (communication deficit) ，和 固执或狭窄兴趣 (rigidity or restricted interest) ']);
+		bing.push([' 彼得潘综合症 ', ' 童话中出现的彼得潘，离开了大人们居住的世界，永远像少年一样的活着。因此，人们就把这种即使年纪已经很大了，但行动与个性却都还表现得像小孩子的人称为 「彼得潘症候群」患者。患了彼得潘症候群的大人，比起跟其他大人相处，他们更喜欢自己一个人玩模型或娃娃，怀念小时候父母无微不至的关照，所以即使长大 了，行为还是像小孩子一样，而这也被称为大孩子（kidult），也就是像小孩的成人。 患者有不少孩子的弱点，如优柔寡断、缺乏自我保护意识、渴望被人接受又害怕被人拒绝等。因此，他们的行为与年龄很不相称。患“彼得潘综合症”的人渴望永远扮演孩子的角色而不愿成为父母. ']);
+		bing.push([' 偏侧空间失调症', '  neglect syndrome 也称为hemiagnosia ， hemineglect ，患综合症的人，没有把相等的注意力集中在一个空间两边的能力。患这种病的人，当他画一个人的时候常常剩下一边的手臂和腿不画，被问之时会说这看起来很完美了。']);
+		bing.push([' 弗雷里格妄想综合症', ' 弗雷里格妄想综合症患者不理智地坚信(或者，其实他们掌握了真相?)，他们的朋友和家人其实已经被陌生人取代，这些陌生人伪装精巧，看上去就和那些他们已经打了一辈子交道的人们一模一样。']);
+		bing.push([' 意志缺失狂', ' 意志缺失狂有一个特点很有趣，那就是患者的心智在其他方面完全正常。受困于意志缺失狂的人们知道自己有病态的选择困难，但他们仍旧为自己在每一件鸡毛蒜皮的小事上耗费的时间感到痛苦。']);
+
+		var rq = d.getDate() * 1;/*每一个月循环一次*/
+		var str3 = "今日精神病：";
+		document.getElementById("bt").innerHTML = str3.concat(bing[rq - 1][0]);
+		document.getElementById("js").innerHTML = bing[rq - 1][1];
+
+		/*获取今日图片*/
+
+		document.getElementById("myImage").src = "pic/" + da + ".jpg";
+
+	/*div转成canvas图形,canvas转base64*/
+	 function saveImg(){
+		html2canvas($("#content"), {
+		    useCORS: true, //（图片跨域相关）
+		    allowTaint: false, //允许跨域（图片跨域相关）
+		    dpi: 300,//设置生成图片清晰度
+		    //scale: window.devicePixelRatio*2 // 默认值是window.devicePixelRatio(设备像素比)
+	        onrendered: function(canvas) {
+	        	$("#photoPic img").attr("src",canvas.toDataURL());
+	        	$("#photoPic").fadeIn();
+	        	$("#photoPic").addClass("animate");
+				
+				//用于点击'下载'按钮
+	        	canvas.setAttribute('id','thecanvas');
+	        	document.getElementById('images').appendChild(canvas);
+	        }
+		});
+	}
+	
+	$(".imgbox i").click(function(){
+		$("#photoPic").hide();
+	});
+	</script>
+</body>
+
+</html>
